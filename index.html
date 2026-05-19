@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>工作情报报告</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;background:#f2f3f5;padding:20px;max-width:600px;margin:0 auto}
+h1{font-size:20px;margin-bottom:8px}
+.date{color:#888;font-size:14px;margin-bottom:20px}
+a{display:block;padding:12px 16px;background:#fff;border-radius:8px;margin-bottom:8px;text-decoration:none;color:#1a1a2e;font-size:15px;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+a:hover{background:#e8ecf1}
+.tag{font-size:11px;padding:2px 8px;border-radius:3px;margin-left:8px}
+.desktop{background:#2d6cdf;color:#fff}
+</style>
+</head>
+<body>
+<h1>工作情报报告</h1>
+<div class="date">Geely Europe · Justin</div>
+<script>
+fetch('https://api.github.com/repos/RRcosworth/work-news-reports/contents/')
+  .then(r => r.json())
+  .then(dirs => {
+    dirs.filter(d => d.type === 'dir').sort((a,b) => b.name.localeCompare(a.name)).forEach(d => {
+      const div = document.createElement('div');
+      div.style.marginBottom = '16px';
+      div.innerHTML = '<strong>' + d.name + '</strong>';
+      const a = document.createElement('a');
+      a.href = '/' + d.name + '/';
+      a.innerHTML = '查看报告 <span class="tag desktop">desktop</span>';
+      div.appendChild(a);
+      document.body.appendChild(div);
+    });
+  });
+</script>
+</body>
+</html>
